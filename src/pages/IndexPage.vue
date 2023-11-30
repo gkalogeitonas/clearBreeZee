@@ -1,10 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+
   </q-page>
 </template>
 
@@ -15,3 +11,9 @@ export default defineComponent({
   name: 'IndexPage'
 })
 </script>
+
+<style lang="scss">
+  .q-page{
+    background: linear-gradient(to bottom, #13648a, #267881);
+  }
+</style>
