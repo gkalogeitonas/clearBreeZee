@@ -8,10 +8,10 @@
       </q-input>
     </div>
 
-    <template v-if="weatheData">
+    <template v-if="weatherData">
       <div class="col text-white text-center">
         <div class="text-h4 text-weight-light">
-          Naxos
+          {{ weatherData.name }}
         </div>
         <div class="text-h6 text-weight-light">
           Rain
@@ -27,9 +27,6 @@
       <q-btn   size="" color="primary" label="Find my location" icon="gps_fixed" @click="getLocation" />
     </div>
     </template>
-
-    <div class="col" id="footer">
-    </div>
   </q-page>
 </template>
 
@@ -43,7 +40,7 @@ export default defineComponent({
       search: '',
       weatherData: null,
       position: null,
-      apiUrl: 'https://api.openweathermap.org/data/2.5/weather?q=',
+      apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
       apiKey: '5114231f956c863476e7ffdc500717e1'
     }
   },
@@ -54,7 +51,8 @@ export default defineComponent({
           position => {
             this.showPosition(position)
             this.position = position
-            this.getWeather(position.coords.latitude, position.coords.longitude)
+            alert('Latitude: ' + position.coords.latitude)
+            this.getWeatherByCoords(position.coords.latitude, position.coords.longitude)
           }
         )
       } else {
