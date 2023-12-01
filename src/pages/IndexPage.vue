@@ -8,18 +8,25 @@
       </q-input>
     </div>
 
-    <div class="col text-white text-center">
-      <div class="text-h4 text-weight-light">
-        Naxos
+    <template v-if="weatheData">
+      <div class="col text-white text-center">
+        <div class="text-h4 text-weight-light">
+          Naxos
+        </div>
+        <div class="text-h6 text-weight-light">
+          Rain
+        </div>
+        <div class="text-h1 text-weight-thin q-my-lg">
+          <span>8</span>
+          <span class="text-small">°</span>C
+        </div>
       </div>
-      <div class="text-h6 text-weight-light">
-        Rain
-      </div>
-      <div class="text-h1 text-weight-thin q-my-lg">
-        <span>8</span>
-        <span class="text-small">°</span>C
-      </div>
+    </template>
+    <template v-else>
+    <div class = "col text-h2 text-center text-white">
+      <q-btn   size="" color="primary" label="Find my location" icon="gps_fixed" @click="getLocation" />
     </div>
+    </template>
 
     <div class="col" id="footer">
     </div>
@@ -30,7 +37,44 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'IndexPage'
+  name: 'IndexPage',
+  data () {
+    return {
+      search: '',
+      weatherData: null,
+      position: null,
+      apiUrl: 'https://api.openweathermap.org/data/2.5/weather?q=',
+      apiKey: '5114231f956c863476e7ffdc500717e1'
+    }
+  },
+  methods: {
+    getLocation () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            this.showPosition(position)
+            this.position = position
+            this.getWeather(position.coords.latitude, position.coords.longitude)
+          }
+        )
+      } else {
+        console.log('Geolocation is not supported by this browser.')
+      }
+    },
+    showPosition (position) {
+      console.log('Latitude: ' + position.coords.latitude +
+      '<br>Longitude: ' + position.coords.longitude)
+    },
+    getWeatherByCoords (lat, lon) {
+      const url = this.apiUrl + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey + '&units=metric'
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          this.weatherData = data
+        })
+    }
+  }
 })
 </script>
 
