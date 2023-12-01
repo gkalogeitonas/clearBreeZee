@@ -42,6 +42,14 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer elevated class="bg-grey-8">
+      <q-toolbar class="toolbar">
+        <q-btn flat round dense icon="gps_fixed" />
+        <q-btn flat round dense icon="map" />
+        <q-btn flat round dense icon="account_circle" />
+        <q-btn flat round dense icon="settings" />
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -78,3 +86,9 @@ export default defineComponent({
   }
 })
 </script>
+<style>
+ .toolbar{
+  display: flex;
+  justify-content: space-between;
+ }
+</style>
