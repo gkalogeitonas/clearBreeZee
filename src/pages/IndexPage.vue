@@ -8,8 +8,8 @@
       </q-input>
     </div>
 
-    <template v-if="weatherData">
-      <div class="col text-white text-center">
+    <template v-if="weatherData || pollutionData">
+      <div  v-if="weatherData" class="col text-white text-center">
         <div class="text-h4 text-weight-light">
           {{ weatherData.name }}
         </div>
@@ -21,7 +21,7 @@
           <span class="text-small">°</span>C
         </div>
       </div>
-      <div class="col text-white text-center">
+      <div v-if="pollutionData" class="col text-white text-center">
         <div class="aqi-circle">
           <div class="text-h2">{{ pollutionData.main.aqi }}</div>
           <div class="text-caption">AQI</div>
