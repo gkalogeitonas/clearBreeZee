@@ -21,8 +21,6 @@
           <span class="text-small">°</span>C
         </div>
       </div>
-    </template>
-    <template v-if="pollutionData">
       <div class="col text-white text-center">
         <div class="aqi-circle">
           <div class="text-h2">{{ pollutionData.main.aqi }}</div>
