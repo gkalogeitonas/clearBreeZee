@@ -65,6 +65,7 @@ export default defineComponent({
     return {
       search: '',
       weatherData: null,
+      pollutionData: null,
       position: null,
       apiUrlWeather: 'https://api.openweathermap.org/data/2.5/weather',
       apiUrlPollution: 'https://api.openweathermap.org/data/2.5/air_pollution',
