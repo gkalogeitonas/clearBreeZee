@@ -16,7 +16,7 @@
         <div class="text-h6 text-weight-light">
           {{weatherData.weather[0].main}}
         </div>
-        <div class="text-h1 text-weight-thin q-my-lg">
+        <div class="text-h2 text-weight-thin q-my-lg">
           <span>{{Math.round(weatherData.main.temp,2)}}</span>
           <span class="text-small">°</span>C
         </div>
@@ -24,11 +24,9 @@
     </template>
     <template v-if="pollutionData">
       <div class="col text-white text-center">
-        <div class="text-h4 text-weight-light">
-          Air Quality Index: {{ pollutionData.main.aqi }}
-        </div>
-        <div class="text-h6 text-weight-light">
-          CO: {{ pollutionData.components.co }} μg/m3
+        <div class="aqi-circle">
+          <div class="text-h2">{{ pollutionData.main.aqi }}</div>
+          <div class="text-caption">AQI</div>
         </div>
         <div class="text-h6 text-weight-light">
           NO: {{ pollutionData.components.no }} μg/m3
@@ -138,5 +136,17 @@ export default defineComponent({
   }
   #footer{
     flex: 0 0 100px;
+  }
+  .aqi-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    margin: 0 auto;
   }
 </style>
