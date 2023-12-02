@@ -14,11 +14,42 @@
           {{ weatherData.name }}
         </div>
         <div class="text-h6 text-weight-light">
-          Rain
+          {{weatherData.weather[0].main}}
         </div>
         <div class="text-h1 text-weight-thin q-my-lg">
-          <span>8</span>
+          <span>{{Math.round(weatherData.main.temp,2)}}</span>
           <span class="text-small">°</span>C
+        </div>
+      </div>
+    </template>
+    <template v-if="pollutionData">
+      <div class="col text-white text-center">
+        <div class="text-h4 text-weight-light">
+          Air Quality Index: {{ pollutionData.main.aqi }}
+        </div>
+        <div class="text-h6 text-weight-light">
+          CO: {{ pollutionData.components.co }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          NO: {{ pollutionData.components.no }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          NO2: {{ pollutionData.components.no2 }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          O3: {{ pollutionData.components.o3 }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          SO2: {{ pollutionData.components.so2 }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          PM2.5: {{ pollutionData.components.pm2_5 }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          PM10: {{ pollutionData.components.pm10 }} μg/m3
+        </div>
+        <div class="text-h6 text-weight-light">
+          NH3: {{ pollutionData.components.nh3 }} μg/m3
         </div>
       </div>
     </template>
@@ -29,7 +60,6 @@
     </template>
   </q-page>
 </template>
-
 <script>
 import { defineComponent } from 'vue'
 
@@ -40,7 +70,8 @@ export default defineComponent({
       search: '',
       weatherData: null,
       position: null,
-      apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
+      apiUrlWeather: 'https://api.openweathermap.org/data/2.5/weather',
+      apiUrlPollution: 'http://api.openweathermap.org/data/2.5/air_pollution',
       apiKey: '5114231f956c863476e7ffdc500717e1'
     }
   },
@@ -51,8 +82,24 @@ export default defineComponent({
           position => {
             this.showPosition(position)
             this.position = position
-            alert('Latitude: ' + position.coords.latitude)
             this.getWeatherByCoords(position.coords.latitude, position.coords.longitude)
+            this.getPollutionByCoords(position.coords.latitude, position.coords.longitude)
+          },
+          error => {
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                alert('User denied the request for Geolocation.')
+                break
+              case error.POSITION_UNAVAILABLE:
+                alert('Location information is unavailable.')
+                break
+              case error.TIMEOUT:
+                alert('The request to get user location timed out.')
+                break
+              case error.UNKNOWN_ERROR:
+                alert('An unknown error occurred.')
+                break
+            }
           }
         )
       } else {
@@ -64,12 +111,21 @@ export default defineComponent({
       '<br>Longitude: ' + position.coords.longitude)
     },
     getWeatherByCoords (lat, lon) {
-      const url = this.apiUrl + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey + '&units=metric'
+      const url = this.apiUrlWeather + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey + '&units=metric'
       fetch(url)
         .then(response => response.json())
         .then(data => {
           console.log(data)
           this.weatherData = data
+        })
+    },
+    getPollutionByCoords (lat, lon) {
+      const url = this.apiUrlPollution + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          this.pollutionData = data.list[0]
         })
     }
   }
