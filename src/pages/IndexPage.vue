@@ -6,7 +6,7 @@
           <q-btn size="lg" color="" name="my_position" icon="gps_fixed" @click="getLocation" />
         </template>
         <template v-slot:append>
-          <q-icon name="search" color="white" />
+          <q-icon name="search" color="white" @click="getWeatherByCityName(search)" />
         </template>
       </q-input>
     </div>
@@ -126,6 +126,17 @@ export default defineComponent({
         .then(data => {
           console.log(data)
           this.pollutionData = data.list[0]
+        })
+    },
+    getWeatherByCityName (cityName) {
+      const url = this.apiUrlWeather + '?q=' + cityName + '&appid=' + this.apiKey + '&units=metric'
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          this.weatherData = data
+          this.pollutionData = null
+          this.getPollutionByCoords(data.coord.lon, data.coord.lat)
         })
     }
   }
