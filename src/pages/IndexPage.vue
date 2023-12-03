@@ -1,7 +1,10 @@
 <template>
   <q-page class="flex column">
     <div class="col q-pt-lg  q-px-md">
-      <q-input color="white" text-color="white" label-color="white" outlined v-model="search" placeholder="Search" >
+      <q-input color="white" text-color="white" label-color="white" outlined v-model="search" placeholder="Search">
+        <template v-slot:prepend>
+          <q-btn size="lg" color="" name="my_position" icon="gps_fixed" @click="getLocation" />
+        </template>
         <template v-slot:append>
           <q-icon name="search" color="white" />
         </template>
