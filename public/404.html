@@ -2,10 +2,7 @@
 <html>
   <head>
     <script>
-      if (sessionStorage.redirect) {
-        history.replaceState({}, "", sessionStorage.redirect);
-        delete sessionStorage.redirect;
-      }
+      sessionStorage.redirect = location.href;
     </script>
     <title><%= productName %></title>
 
