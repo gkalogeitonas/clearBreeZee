@@ -20,6 +20,23 @@ module.exports = configure(function (/* ctx */) {
       warnings: true,
       errors: true
     },
+    pwa: {
+      // change this to suit your needs
+      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+      workboxOptions: {}, // only for GenerateSW
+      manifest: {
+        name: 'Quasar App',
+        short_name: 'Quasar App',
+        description: 'A Quasar Framework app',
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#ffffff',
+        theme_color: '#027be3',
+        icons: [
+          // ...
+        ]
+      }
+    },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
