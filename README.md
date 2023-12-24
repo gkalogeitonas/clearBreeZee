@@ -1,4 +1,9 @@
-# air-quality-app (air-quality-app)
+Welcome to clearBreeZee, a Progressive Web App (PWA) built with Vue.js and Quasar framework.
+
+Explore the app by visiting the demo page  <https://gkalogeitonas.github.io/clearBreeZee/#/>.
+
+
+# clearBreeZee (clearBreeZee)
 
 A Quasar Project
 
