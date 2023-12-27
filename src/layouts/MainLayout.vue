@@ -44,10 +44,14 @@
     </q-page-container>
     <q-footer elevated class="bg-grey-8">
       <q-toolbar class="toolbar">
-        <q-btn flat round dense icon="gps_fixed" />
+        <router-link to="/">
+          <q-btn flat round dense icon="gps_fixed" />
+        </router-link>
         <q-btn flat round dense icon="map" />
         <q-btn flat round dense icon="account_circle" />
-        <q-btn flat round dense icon="settings" />
+        <router-link to="/settings">
+          <q-btn flat round dense icon="settings" />
+        </router-link>
       </q-toolbar>
     </q-footer>
   </q-layout>
