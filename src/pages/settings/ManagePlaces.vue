@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: 'SettingsPage'
-}
-</script>
-
 <template>
 <q-page class="flex column q-pa-sm">
       <q-input color="orange" standout bottom-slots v-model="home" label="Home"  clearable>
@@ -33,6 +27,30 @@ export default {
       </q-input>
 </q-page>
 </template>
+
+<script>
+export default {
+  name: 'SettingsPage',
+  data () {
+    return {
+      home: '',
+      work: ''
+    }
+  },
+  watch: {
+    home (newHome) {
+      localStorage.setItem('home', newHome)
+    },
+    work (newWork) {
+      localStorage.setItem('work', newWork)
+    }
+  },
+  created () {
+    this.home = localStorage.getItem('home') || ''
+    this.work = localStorage.getItem('work') || ''
+  }
+}
+</script>
 
 <style scoped>
 .q-page{
