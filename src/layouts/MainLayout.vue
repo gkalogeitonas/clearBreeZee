@@ -95,4 +95,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
  }
+  .toolbar a{
+    color: white;
+  }
 </style>
