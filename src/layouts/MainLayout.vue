@@ -47,8 +47,12 @@
         <router-link to="/">
           <q-btn flat round dense icon="gps_fixed" />
         </router-link>
-        <q-btn flat round dense icon="map" />
-        <q-btn flat round dense icon="account_circle" />
+        <router-link to="/map">
+          <q-btn flat round dense icon="map" />
+        </router-link>
+        <router-link to="/personal-info">
+          <q-btn flat round dense icon="account_circle" />
+        </router-link>
         <router-link to="/settings">
           <q-btn flat round dense icon="settings" />
         </router-link>
