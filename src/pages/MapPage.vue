@@ -1,43 +1,19 @@
 <template>
-  <div>
-    <GoogleMap
-      :center="center"
-      :zoom="12"
-      :options="{
-        mapTypeId: 'roadmap'
-      }"
-      style="width: 100%; height: 400px"
-    >
-      <Marker
-        :position="center"
-      />
-    </GoogleMap>
-  </div>
+  <GoogleMap api-key="AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c" style="width: 100%; height: 500px" :center="center" :zoom="15">
+    <MapMarker :options="{ position: center }" />
+  </GoogleMap>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { GoogleMap, Marker as MapMarker } from 'vue3-google-map'
 
-export default {
-  components: {
-    GoogleMap,
-    Marker
-  },
+export default defineComponent({
+  components: { GoogleMap, MapMarker },
   setup () {
-    const center = ref({ lat: 40.730610, lng: -73.935242 }) // Default to New York
+    const center = { lat: 40.689247, lng: -74.044502 }
 
-    onMounted(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-          center.value = { lat: position.coords.latitude, lng: position.coords.longitude }
-        })
-      }
-    })
-
-    return {
-      center
-    }
+    return { center }
   }
-}
+})
 </script>
