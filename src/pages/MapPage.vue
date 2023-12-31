@@ -1,19 +1,42 @@
 <template>
-  <GoogleMap api-key="AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c" style="width: 100%; height: 500px" :center="center" :zoom="15">
+  <GoogleMap :api-key="googleMapsApiKey" style="width: 100%; height: 500px" :center="center" :zoom="15">
     <MapMarker :options="{ position: center }" />
   </GoogleMap>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { ref, onMounted, defineComponent } from 'vue'
+import { useStore } from 'stores/store'
 import { GoogleMap, Marker as MapMarker } from 'vue3-google-map'
 
 export default defineComponent({
   components: { GoogleMap, MapMarker },
   setup () {
-    const center = { lat: 40.689247, lng: -74.044502 }
+    const store = useStore()
+    const center = ref(null)
+    console.log(store.googleMapsApiKey)
 
-    return { center }
+    onMounted(() => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          center.value = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        }, () => {
+          // Fallback to a default location if geolocation is not available
+          center.value = { lat: 40.689247, lng: -74.044502 }
+        })
+      } else {
+        // Fallback to a default location if geolocation is not available
+        center.value = { lat: 40.689247, lng: -74.044502 }
+      }
+    })
+
+    return {
+      googleMapsApiKey: store.googleMapsApiKey,
+      center
+    }
   }
 })
 </script>
