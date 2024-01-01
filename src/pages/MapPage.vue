@@ -7,15 +7,13 @@
 
 <script>
 import { ref, onMounted, defineComponent } from 'vue'
-import { useStore } from 'stores/store'
+// import { useStore } from 'stores/store'
 import { GoogleMap, Marker as MapMarker } from 'vue3-google-map'
 
 export default defineComponent({
   components: { GoogleMap, MapMarker },
   setup () {
-    const store = useStore()
     const center = ref(null)
-    console.log(store.googleMapsApiKey)
 
     onMounted(() => {
       if (navigator.geolocation) {
