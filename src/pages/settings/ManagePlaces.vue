@@ -29,25 +29,24 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+import { useStore } from 'stores/store'
 export default {
   name: 'SettingsPage',
-  data () {
-    return {
-      home: '',
-      work: ''
-    }
-  },
-  watch: {
-    home (newHome) {
-      localStorage.setItem('home', newHome)
-    },
-    work (newWork) {
-      localStorage.setItem('work', newWork)
-    }
-  },
-  created () {
-    this.home = localStorage.getItem('home') || ''
-    this.work = localStorage.getItem('work') || ''
+  setup () {
+    const store = useStore()
+    const home = ref(store.home)
+    const work = ref(store.work)
+
+    watch(home, (newHome) => {
+      store.setHome(newHome)
+    })
+
+    watch(work, (newWork) => {
+      store.setWork(newWork)
+    })
+
+    return { home, work }
   }
 }
 </script>
