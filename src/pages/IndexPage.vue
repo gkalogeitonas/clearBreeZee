@@ -72,7 +72,7 @@ export default defineComponent({
       position: null,
       apiUrlWeather: 'https://api.openweathermap.org/data/2.5/weather',
       apiUrlPollution: 'https://api.openweathermap.org/data/2.5/air_pollution',
-      apiKey: '5114231f956c863476e7ffdc500717e1'
+      apiKey: process.env.openWeatherMapApiKey
     }
   },
   methods: {

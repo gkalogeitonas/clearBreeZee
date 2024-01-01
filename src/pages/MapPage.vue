@@ -2,6 +2,7 @@
   <GoogleMap :api-key="googleMapsApiKey" style="width: 100%; height: 500px" :center="center" :zoom="15">
     <MapMarker :options="{ position: center }" />
   </GoogleMap>
+  googleMapsApiKey : {{ googleMapsApiKey }}
 </template>
 
 <script>
@@ -34,7 +35,8 @@ export default defineComponent({
     })
 
     return {
-      googleMapsApiKey: store.googleMapsApiKey,
+      // googleMapsApiKey: store.googleMapsApiKey,
+      googleMapsApiKey: process.env.googleMapsApiKey,
       center
     }
   }
