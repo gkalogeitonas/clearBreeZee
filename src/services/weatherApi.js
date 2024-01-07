@@ -14,7 +14,9 @@ export class WeatherApi {
 
   getPollutionByCoords (lat, lon) {
     const url = `${apiUrlPollution}?lat=${lat}&lon=${lon}&appid=${this.apiKey}`
-    return fetch(url).then(response => response.json())
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => data.list[0])
   }
 
   getWeatherByCityName (cityName) {
