@@ -71,8 +71,6 @@ export default defineComponent({
       weatherData: null,
       pollutionData: null,
       position: null,
-      apiUrlWeather: 'https://api.openweathermap.org/data/2.5/weather',
-      apiUrlPollution: 'https://api.openweathermap.org/data/2.5/air_pollution',
       apiKey: process.env.openWeatherMapApiKey,
       weatherApi: null
     }
@@ -118,9 +116,7 @@ export default defineComponent({
       this.weatherData = await this.weatherApi.getWeatherByCoords(lat, lon)
     },
     async getPollutionByCoords (lat, lon) {
-      console.log('getPollutionByCoords', lat, lon)
       this.pollutionData = await this.weatherApi.getPollutionByCoords(lat, lon)
-      console.log('pollutionData', this.pollutionData)
     },
     async getWeatherByCityName (cityName) {
       this.weatherData = await this.weatherApi.getWeatherByCityName(cityName)
