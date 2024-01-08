@@ -65,6 +65,14 @@ export default defineComponent({
     const weatherData = ref(null)
     const pollutionData = ref(null)
 
+    // Define the handleMapClick function
+    const handleMapClick = (event) => {
+      center.value = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }
+      console.log(center.value)
+    }
     onMounted(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -80,15 +88,7 @@ export default defineComponent({
         })
       }
     })
-    // Define the handleMapClick function
-    const handleMapClick = (event) => {
-      center.value = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
-      }
-      console.log(center.value)
-    }
-    console.log(center)
+    // console.log(center)
     watch(center, async (newCenter) => {
       weatherData.value = await weatherApi.getWeatherByCoords(newCenter.lat, newCenter.lng)
       pollutionData.value = await weatherApi.getPollutionByCoords(newCenter.lat, newCenter.lng)
