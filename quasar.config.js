@@ -45,7 +45,7 @@ module.exports = configure(function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
-
+      'pinia'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -72,6 +72,10 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16'
+      },
+      env: {
+        googleMapsApiKey: 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c',
+        openWeatherMapApiKey: '5114231f956c863476e7ffdc500717e1'
       },
       publicPath: process.env.NODE_ENV === 'production' ? '/clearBreeZee/' : '/',
       vueRouterMode: 'hash' // available values: 'hash', 'history'

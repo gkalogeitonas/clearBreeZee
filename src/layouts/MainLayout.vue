@@ -44,10 +44,18 @@
     </q-page-container>
     <q-footer elevated class="bg-grey-8">
       <q-toolbar class="toolbar">
-        <q-btn flat round dense icon="gps_fixed" />
-        <q-btn flat round dense icon="map" />
-        <q-btn flat round dense icon="account_circle" />
-        <q-btn flat round dense icon="settings" />
+        <router-link to="/">
+          <q-btn flat round dense icon="gps_fixed" />
+        </router-link>
+        <router-link to="/map">
+          <q-btn flat round dense icon="map" />
+        </router-link>
+        <router-link to="/personal-info">
+          <q-btn flat round dense icon="account_circle" />
+        </router-link>
+        <router-link to="/settings">
+          <q-btn flat round dense icon="settings" />
+        </router-link>
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -91,4 +99,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
  }
+  .toolbar a{
+    color: white;
+  }
 </style>

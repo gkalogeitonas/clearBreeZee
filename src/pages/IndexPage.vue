@@ -61,6 +61,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
+import { WeatherApi } from 'src/services/weatherApi.js'
 
 export default defineComponent({
   name: 'IndexPage',
@@ -70,10 +71,12 @@ export default defineComponent({
       weatherData: null,
       pollutionData: null,
       position: null,
-      apiUrlWeather: 'https://api.openweathermap.org/data/2.5/weather',
-      apiUrlPollution: 'https://api.openweathermap.org/data/2.5/air_pollution',
-      apiKey: '5114231f956c863476e7ffdc500717e1'
+      apiKey: process.env.openWeatherMapApiKey,
+      weatherApi: null
     }
+  },
+  created () {
+    this.weatherApi = new WeatherApi(this.apiKey)
   },
   methods: {
     getLocation () {
@@ -107,37 +110,19 @@ export default defineComponent({
       }
     },
     showPosition (position) {
-      console.log('Latitude: ' + position.coords.latitude +
-      '<br>Longitude: ' + position.coords.longitude)
+      console.log('Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude)
     },
-    getWeatherByCoords (lat, lon) {
-      const url = this.apiUrlWeather + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey + '&units=metric'
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          this.weatherData = data
-        })
+    async getWeatherByCoords (lat, lon) {
+      this.weatherData = await this.weatherApi.getWeatherByCoords(lat, lon)
     },
-    getPollutionByCoords (lat, lon) {
-      const url = this.apiUrlPollution + '?lat=' + lat + '&lon=' + lon + '&appid=' + this.apiKey
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          this.pollutionData = data.list[0]
-        })
+    async getPollutionByCoords (lat, lon) {
+      this.pollutionData = await this.weatherApi.getPollutionByCoords(lat, lon)
     },
-    getWeatherByCityName (cityName) {
-      const url = this.apiUrlWeather + '?q=' + cityName + '&appid=' + this.apiKey + '&units=metric'
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          this.weatherData = data
-          this.pollutionData = null
-          this.getPollutionByCoords(data.coord.lon, data.coord.lat)
-        })
+    async getWeatherByCityName (cityName) {
+      this.weatherData = await this.weatherApi.getWeatherByCityName(cityName)
+      if (this.weatherData && this.weatherData.coord) {
+        this.pollutionData = await this.weatherApi.getPollutionByCoords(this.weatherData.coord.lat, this.weatherData.coord.lon)
+      }
     }
   }
 })
