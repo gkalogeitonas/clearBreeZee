@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          AirQuality
+          clearBreeZee
         </q-toolbar-title>
 
-        <div>AirQuality v{{ $q.version }}</div>
+        <div>clearBreeZee v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
