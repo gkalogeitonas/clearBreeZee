@@ -1,17 +1,16 @@
 <template>
 <q-page class="flex column q-pa-sm">
-      <q-input color="orange" standout bottom-slots v-model="home" label="Home"  clearable>
-        <template v-slot:prepend>
-          <q-icon name="place" />
-        </template>
-        <template v-slot:append>
-          <q-icon name="home" />
-        </template>
-
-        <template v-slot:hint>
-          Enter the url endpoint for your home Data
-        </template>
-      </q-input>
+      <div class="q-field__control relative-position row no-wrap">
+         <div class="q-field__prepend q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">place</i></div>
+         <GoogleAddressAutocomplete
+          :apiKey="googleMapsApiKey"
+          v-model="home"
+          @callback="homeCallback"
+          class="q-field__native q-placeholder"
+          placeholder="Enter home location"
+          />
+          <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">home</i></div>
+      </div>
       <br>
       <q-input color="orange" standout bottom-slots v-model="work" label="Work"  clearable>
         <template v-slot:prepend>
@@ -26,13 +25,17 @@
         </template>
       </q-input>
 
-        <GoogleAddressAutocomplete
+      <!-- <div class="q-field__control relative-position row no-wrap">
+         <div class="q-field__prepend q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">place</i></div>
+         <GoogleAddressAutocomplete
           :apiKey="googleMapsApiKey"
-          v-model="address"
-          @callback="callbackFunction"
-          class="css-class-here"
-          placeholder="placeholder if you wish"
-        />
+          v-model="home"
+          @callback="homeCallback"
+          class="q-field__native q-placeholder"
+          placeholder="Enter home location"
+          />
+          <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">home</i></div>
+      </div> -->
 
 </q-page>
 </template>
@@ -45,24 +48,24 @@ import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
 const store = useStore()
 const home = ref(store.home)
 const work = ref(store.work)
-const address = ref('')
+// const address = ref('')
 const googleMapsApiKey = 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c'
 
-watch(home, (newHome) => {
-  store.setHome(newHome)
-})
+// watch(home, (newHome) => {
+//   store.setHome(newHome)
+// })
 
 watch(work, (newWork) => {
   store.setWork(newWork)
 })
 
-const callbackFunction = (place) => {
-  console.log(place)
-  address.value = place.formatted_address
-  const lat = place.geometry.location.lat()
-  const lng = place.geometry.location.lng()
-  console.log(`Latitude: ${lat}, Longitude: ${lng}`)
-  // do something with place.geometry.location.lat() and place.geometry.location.lng()
+const homeCallback = (place) => {
+  home.value = {
+    address: place.formatted_address,
+    lat: place.geometry.location.lat(),
+    lng: place.geometry.location.lng()
+  }
+  store.setHome(home)
 }
 
 </script>
