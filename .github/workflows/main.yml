@@ -23,20 +23,13 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Install Quasar CLI
-      run: npm install -g @quasar/cli
-
     - name: Build
-      run: quasar build --mode pwa
+      run: npm run build --mode pwa
       env:
         NODE_ENV: production
-
-    - name: Deploy
-      run: npm run deploy
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
