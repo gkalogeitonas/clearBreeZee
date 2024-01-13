@@ -78,7 +78,7 @@ module.exports = configure(function (/* ctx */) {
         openWeatherMapApiKey: '5114231f956c863476e7ffdc500717e1'
       },
       publicPath: process.env.NODE_ENV === 'production' ? '/clearBreeZee/' : '/',
-      vueRouterMode: 'hash' // available values: 'hash', 'history'
+      vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -92,7 +92,7 @@ module.exports = configure(function (/* ctx */) {
       // ignorePublicFolder: true,
       // minify: false,
       // polyfillModulePreload: true,
-      // distDir
+      distDir: 'dist'
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
