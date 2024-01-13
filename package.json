@@ -1,8 +1,8 @@
 {
-  "name": "air-quality-app",
+  "name": "clearBreeZee",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "air-quality-app",
+  "productName": "clearBreeZee",
   "author": "Giorgos Kalogeitonas <gkalog2@gmail.com>",
   "private": true,
   "scripts": {

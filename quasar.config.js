@@ -213,7 +213,7 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'air-quality-app'
+        appId: 'clearBreeZee'
       }
     },
 
