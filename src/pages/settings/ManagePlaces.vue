@@ -25,30 +25,46 @@
           Enter the url endpoint for your work place Data
         </template>
       </q-input>
+
+        <GoogleAddressAutocomplete
+          :apiKey="googleMapsApiKey"
+          v-model="address"
+          @callback="callbackFunction"
+          class="css-class-here"
+          placeholder="placeholder if you wish"
+        />
+
 </q-page>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useStore } from 'stores/store'
-export default {
-  name: 'SettingsPage',
-  setup () {
-    const store = useStore()
-    const home = ref(store.home)
-    const work = ref(store.work)
+import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
 
-    watch(home, (newHome) => {
-      store.setHome(newHome)
-    })
+const store = useStore()
+const home = ref(store.home)
+const work = ref(store.work)
+const address = ref('')
+const googleMapsApiKey = 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c'
 
-    watch(work, (newWork) => {
-      store.setWork(newWork)
-    })
+watch(home, (newHome) => {
+  store.setHome(newHome)
+})
 
-    return { home, work }
-  }
+watch(work, (newWork) => {
+  store.setWork(newWork)
+})
+
+const callbackFunction = (place) => {
+  console.log(place)
+  address.value = place.formatted_address
+  const lat = place.geometry.location.lat()
+  const lng = place.geometry.location.lng()
+  console.log(`Latitude: ${lat}, Longitude: ${lng}`)
+  // do something with place.geometry.location.lat() and place.geometry.location.lng()
 }
+
 </script>
 
 <style scoped>
