@@ -1,1 +1,0 @@
-import{a8 as o}from"./index.4538b830.js";const s=o({id:"main",state:()=>({home:JSON.parse(localStorage.getItem("home")),work:localStorage.getItem("work")||""}),actions:{setHome(e){this.home=e,console.log(JSON.stringify(e)),localStorage.setItem("home",JSON.stringify(e))},setWork(e){this.work=e,localStorage.setItem("work",e)}}});export{s as u};
