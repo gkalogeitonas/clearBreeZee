@@ -12,7 +12,7 @@
           <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">home</i></div>
       </div>
       <br>
-      <!-- <div class="q-field__control relative-position row no-wrap">
+      <div class="q-field__control relative-position row no-wrap">
          <div class="q-field__prepend q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">place</i></div>
          <GoogleAddressAutocomplete
           :apiKey="googleMapsApiKey"
@@ -22,7 +22,7 @@
           :placeholder="workAddress"
           />
           <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">push_pin</i></div>
-      </div> -->
+      </div>
 </q-page>
 </template>
 
@@ -33,27 +33,27 @@ import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
 
 const store = useStore()
 const home = ref(store.home)
-// const work = ref(store.work)
+const work = ref(store.work)
 const homeAddress = ref(home.value.address) // Create homeAddress variable
-// const workAddress = ref(work.value.address) // Create homeAddress variable
+const workAddress = ref(work.value.address) // Create homeAddress variable
 
 const googleMapsApiKey = 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c'
 
-// const workCallback = (place) => {
-//   work.value = {
-//     address: place.formatted_address,
-//     lat: place.geometry.location.lat(),
-//     lng: place.geometry.location.lng()
-//   }
-//   store.setWork(work)
-// }
+const workCallback = (place) => {
+  work.value = {
+    address: place.formatted_address,
+    lat: place.geometry.location.lat(),
+    lng: place.geometry.location.lng()
+  }
+  store.setWork(work)
+}
 watch(home, (newHome) => {
   homeAddress.value = newHome.address // Update homeAddress when home changes
 })
 
-// watch(work, (newWork) => {
-//   workAddress.value = newWork.address // Update workAddress when work changes
-// })
+watch(work, (newWork) => {
+  workAddress.value = newWork.address // Update workAddress when work changes
+})
 
 const homeCallback = (place) => {
   home.value = {
