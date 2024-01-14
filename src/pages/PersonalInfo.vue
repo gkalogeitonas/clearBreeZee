@@ -2,11 +2,14 @@
   <div>
     Hello World!
   </div>
-  Work: {{ work }}
   <br>
   Home Address: {{ home.address }}
   Home Latitude: {{ home.lat }}
   Home Longitude: {{ home.lng }}
+  <br>
+  Work Address: {{ work.address }}
+  Work Latitude: {{ work.lat }}
+  Work Longitude: {{ work.lng }}
 </template>
 
 <script setup>
