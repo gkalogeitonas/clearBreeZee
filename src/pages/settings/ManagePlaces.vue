@@ -4,10 +4,10 @@
          <div class="q-field__prepend q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">place</i></div>
          <GoogleAddressAutocomplete
           :apiKey="googleMapsApiKey"
-          v-model="home"
+          v-model="homeAddress"
           @callback="homeCallback"
           class="q-field__native q-placeholder"
-          placeholder="Enter home location"
+          :placeholder="homeAddress"
           />
           <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">home</i></div>
       </div>
@@ -24,23 +24,10 @@
           Enter the url endpoint for your work place Data
         </template>
       </q-input>
-
-      <!-- <div class="q-field__control relative-position row no-wrap">
-         <div class="q-field__prepend q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">place</i></div>
-         <GoogleAddressAutocomplete
-          :apiKey="googleMapsApiKey"
-          v-model="home"
-          @callback="homeCallback"
-          class="q-field__native q-placeholder"
-          placeholder="Enter home location"
-          />
-          <div class="q-field__append q-field__marginal row no-wrap items-center"><i data-v-9d03536e="" class="q-icon notranslate material-icons" aria-hidden="true" role="presentation">home</i></div>
-      </div> -->
-
 </q-page>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, watch } from 'vue'
 import { useStore } from 'stores/store'
 import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
@@ -48,15 +35,16 @@ import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
 const store = useStore()
 const home = ref(store.home)
 const work = ref(store.work)
-// const address = ref('')
-const googleMapsApiKey = 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c'
+const homeAddress = ref(home.value.address) // Create homeAddress variable
 
-// watch(home, (newHome) => {
-//   store.setHome(newHome)
-// })
+const googleMapsApiKey = 'AIzaSyDGK-JloxIj-G_a4W5MahoD2w4AlYVBA7c'
 
 watch(work, (newWork) => {
   store.setWork(newWork)
+})
+
+watch(home, (newHome) => {
+  homeAddress.value = newHome.address // Update homeAddress when home changes
 })
 
 const homeCallback = (place) => {
