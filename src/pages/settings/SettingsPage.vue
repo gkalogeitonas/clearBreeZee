@@ -17,20 +17,31 @@
         <div id="notifications">
             <h2>Notification Settings</h2>
             <!-- Add your notification settings here -->
-            <p>This is the Notification Settings section content for your Vue app.</p>
-            <q-item clickable v-ripple>
+            <q-item  clickable v-ripple>
               <q-item-section>
                 <q-item-label>Smart Alerts</q-item-label>
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle v-model="smartAlerts" />
               </q-item-section>
             </q-item>
             <q-item clickable v-ripple>
               <q-item-section>
                 <q-item-label>Threshold Alerts</q-item-label>
               </q-item-section>
+              <div class="q-pa-md">
+                <q-badge color="secondary">
+                  Threshold: {{ thresholdAlert }} (0 to 5)
+                </q-badge>
+                <q-slider v-model="thresholdAlert" :min="0" :max="5"/>
+              </div>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item  clickable v-ripple>
               <q-item-section>
-                <q-item-label>Persistent  Notifications</q-item-label>
+                <q-item-label>Persistent Notifications</q-item-label>
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle v-model="persistentNotifications" />
               </q-item-section>
             </q-item>
         </div>
@@ -57,8 +68,16 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
-  name: 'SettingsPage'
+  name: 'SettingsPage',
+  setup () {
+    return {
+      smartAlerts: ref(true),
+      persistentNotifications: ref(true),
+      thresholdAlert: ref(2)
+    }
+  }
 }
 </script>
 
