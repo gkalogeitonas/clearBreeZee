@@ -15,6 +15,14 @@ const routes = [
     ]
   },
   {
+    component: () => import('layouts/MainLayout.vue'),
+    path: '/settings2',
+    children: [
+      { path: '', component: () => import('pages/settings/SettingsPage2.vue') }
+      // { path: '/manage-places', component: () => import('pages/settings/ManagePlaces.vue') }
+    ]
+  },
+  {
     path: '/map',
     component: () => import('layouts/MainLayout.vue'),
     children: [
