@@ -1,31 +1,33 @@
 <template>
-       <div v-if="centerPollutionData" id="center" class="col text-black text-center">
-        <div class="aqi-circle">
-          <div class="text-h2">{{ centerPollutionData.main.aqi }}</div>
-          <div class="text-caption">AQI</div>
+  <div id="app">
+    <div v-if="centerPollutionData" id="center" class="col text-black text-center">
+      <div class="aqi-circle">
+        <div class="text-h2">{{ centerPollutionData.main.aqi }}</div>
+        <div class="text-caption">AQI</div>
+      </div>
+    </div>
+    <div v-if="pollutionData" id="home" class="row text-black text-center">
+      <div class="col-2">
+        <div class="">
+          <div class="text-h3">{{ pollutionData.main.aqi }}</div>
+          <div class="text-caption">Home</div>
         </div>
       </div>
-      <div v-if="pollutionData" id="home" class="row text-black text-center">
-        <div class="col-2">
-          <div class="aqi-circle">
-            <div class="text-h3">{{ pollutionData.main.aqi }}</div>
-            <div class="text-caption">Home</div>
-          </div>
+      <div class="col-10">
+        <div class="text-caption text-weight-light">
+          NO: {{ pollutionData.components.no }} μg/m3,
+          NO2: {{ pollutionData.components.no2 }} μg/m3,
+          O3: {{ pollutionData.components.o3 }} μg/m3,
+          SO2: {{ pollutionData.components.so2 }} μg/m3
         </div>
-        <div class="col-10">
-          <div class="text-caption text-weight-light">
-            NO: {{ pollutionData.components.no }} μg/m3,
-            NO2: {{ pollutionData.components.no2 }} μg/m3,
-            O3: {{ pollutionData.components.o3 }} μg/m3,
-            SO2: {{ pollutionData.components.so2 }} μg/m3
-          </div>
-          <div class="text-caption text-weight-light">
-            PM2.5: {{ pollutionData.components.pm2_5 }} μg/m3,
-            PM10: {{ pollutionData.components.pm10 }} μg/m3,
-            NH3: {{ pollutionData.components.nh3 }} μg/m3
-          </div>
+        <div class="text-caption text-weight-light">
+          PM2.5: {{ pollutionData.components.pm2_5 }} μg/m3,
+          PM10: {{ pollutionData.components.pm10 }} μg/m3,
+          NH3: {{ pollutionData.components.nh3 }} μg/m3
         </div>
       </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -66,12 +68,14 @@ onMounted(async () => {
 // fetchData()
 
 </script>
+
 <style scoped>
 #app {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  padding: 40px 20px;
 }
 
 #center {
@@ -79,6 +83,19 @@ onMounted(async () => {
 }
 
 #home {
-  align-self: flex-end;
+
 }
+
+  .aqi-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    margin: 0 auto;
+  }
 </style>
